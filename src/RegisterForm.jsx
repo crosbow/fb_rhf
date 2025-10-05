@@ -14,7 +14,6 @@ const RegisterForm = () => {
     name: "socials",
     control,
   });
-  console.log(errors);
 
   const onSubmit = async (formData) => {
     console.log(formData);
@@ -92,6 +91,13 @@ const RegisterForm = () => {
                     className="text-lg py-2 px-4 rounded-md border outline-none focus:ring border-gray-300 ring-blue-500 w-full mt-3"
                   />
                 </Field>
+                <button
+                  onClick={() => remove(i)}
+                  title="Remove"
+                  className="text-lg p-2 cursor-pointer rounded-md "
+                >
+                  -
+                </button>
               </div>
             );
           })}
