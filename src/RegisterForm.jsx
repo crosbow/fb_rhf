@@ -1,6 +1,7 @@
-import { useFieldArray, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import Field from "./components/Field";
 import FieldSet from "./components/FieldSet";
+import NumberInput from "./components/NumberInput";
 
 const RegisterForm = () => {
   const {
@@ -60,14 +61,39 @@ const RegisterForm = () => {
               className="text-lg py-2 px-4 rounded-md border outline-none focus:ring border-gray-300 ring-blue-500 w-full mt-3"
             />
           </Field>
+          <Field error={errors.age}>
+            <Controller
+              name="age"
+              control={control}
+              render={({ field: { ref, ...field } }) => (
+                <NumberInput
+                  id="age"
+                  placeholder="age"
+                  style={{
+                    borderColor: errors.age ? "red" : "gray",
+                  }}
+                  className="text-lg py-2 px-4 rounded-md border outline-none focus:ring border-gray-300 ring-blue-500 w-full mt-3"
+                  {...field}
+                />
+              )}
+              rules={{
+                max: {
+                  value: 100,
+                  message: "Age must be between 0 - 100",
+                },
+              }}
+            />
+          </Field>
 
           <h2 className="mt-3 text-lg">Add social link</h2>
 
           {fields.map((field, i) => {
-            console.log(field);
-
             return (
-              <div key={field.id} className="flex gap-2">
+              <div
+                key={field.id}
+                name={`socials[${i}].name`}
+                className="flex gap-2"
+              >
                 <Field error={errors.socials && errors.socials[i]?.message}>
                   <input
                     {...register(`socials[${i}].name`)}
